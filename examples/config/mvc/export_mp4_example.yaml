@@ -9,5 +9,5 @@ view:
   CAMERA_FWD: [0.0, 0.5, 8.0]
 controller:
   MODE: video_render
-  OUTPUT_VIDEO_PATH: ./video.mp4
+  OUTPUT_VIDEO_PATH: /home/animation/video.mp4
   OUTPUT_VIDEO_CODEC: avc1
