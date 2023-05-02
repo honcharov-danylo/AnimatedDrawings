@@ -19,6 +19,7 @@ from animated_drawings.config import ViewConfig
 import logging
 from typing import Tuple, Dict
 import numpy as np
+import scipy
 import numpy.typing as npt
 from pathlib import Path
 from pkg_resources import resource_filename
@@ -29,7 +30,6 @@ class MesaView(View):
 
     def __init__(self, cfg: ViewConfig) -> None:
         super().__init__(cfg)
-
         self.camera: Camera = Camera(self.cfg.camera_pos, self.cfg.camera_fwd)
 
         self.ctx: osmesa.OSMesaContext
@@ -52,7 +52,6 @@ class MesaView(View):
             return
 
         _txtr = read_background_image(self.cfg.background_image)
-
         self.txtr_h, self.txtr_w, _ = _txtr.shape
         self.txtr_id = GL.glGenTextures(1)
         GL.glPixelStorei(GL.GL_UNPACK_ALIGNMENT, 4)
@@ -80,7 +79,8 @@ class MesaView(View):
 
     def _update_shaders_view_transform(self, camera: Camera) -> None:
         try:
-            view_transform: npt.NDArray[np.float32] = np.linalg.inv(camera.get_world_transform())
+            # view_transform: npt.NDArray[np.float32] = np.linalg.inv(camera.get_world_transform())
+            view_transform: npt.NDArray[np.float32] = scipy.linalg.inv(camera.get_world_transform(), overwrite_a=True, check_finite=False)
         except Exception as e:
             msg = f'Error inverting camera world transform: {e}'
             logging.critical(msg)
@@ -112,8 +112,10 @@ class MesaView(View):
         self.ctx = osmesa.OSMesaCreateContext(osmesa.OSMESA_RGBA, None)
         self.buffer: npt.NDArray[np.uint8] = GL.arrays.GLubyteArray.zeros((height, width, 4))  # type: ignore
         osmesa.OSMesaMakeCurrent(self.ctx, self.buffer, GL.GL_UNSIGNED_BYTE, width, height)
-
         GL.glClearColor(*self.cfg.clear_color)
+        # GL.glShadeModel(GL.GL_FLAT)
+        # GL.glDepthMask(GL.GL_FALSE)
+        # GL.glDisable(GL.GL_DITHER)
 
     def set_scene(self, scene: Scene) -> None:
         self.scene = scene
