@@ -38,4 +38,4 @@ COPY test.py /home/animation/test.py
 RUN pip install -e /home/animation
 
 # starting command
-CMD /bin/python /home/animation/test.py && sleep infinity
+CMD python /home/animation/test.py && sleep infinity
