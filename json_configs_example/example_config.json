@@ -1,0 +1,23 @@
+{"scene": {
+    "ADD_FLOOR": false,
+    "ADD_AD_RETARGET_BVH" : false
+},
+"view": {
+  "CLEAR_COLOR" : [1.0, 1.0, 1.0, 0.0],
+  "BACKGROUND_IMAGE": null,
+  "WINDOW_DIMENSIONS" : [500, 500],
+  "DRAW_AD_RIG" : false,
+  "DRAW_AD_TXTR" : true,
+  "DRAW_AD_COLOR" : false,
+  "DRAW_AD_MESH_LINES" : false,
+  "USE_MESA": true,
+  "CAMERA_POS" : [0.0, 0.7, 2.0],
+  "CAMERA_FWD" : [0.0, 0.5, 2.0]
+},
+  "controller": {
+   "MODE" : "video_render",
+  "KEYBOARD_TIMESTEP" : 0.0333,
+  "OUTPUT_VIDEO_PATH" : "./output_video.mp4",
+  "OUTPUT_VIDEO_CODEC" : "avc1"
+  }
+}

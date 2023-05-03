@@ -33,9 +33,11 @@ COPY animated_drawings /home/animation/animated_drawings
 COPY examples /home/animation/examples
 COPY media /home/animation/media
 COPY tests /home/animation/tests
+COPY json_configs_example /home/animation/json_configs_example
+COPY test_json.py /home/animation/test_json.py
 COPY setup.py /home/animation/setup.py
-COPY test.py /home/animation/test.py
+#COPY test.py /home/animation/test.py
 RUN pip install -e /home/animation
-
+WORKDIR /home/animation
 # starting command
-CMD python /home/animation/test.py && sleep infinity
+CMD python /home/animation/test_json.py && sleep infinity
